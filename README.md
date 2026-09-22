@@ -1,43 +1,34 @@
 # Harness Intelligence Improvements
 
-High-level lessons for making AI agents more capable by improving the software around the model.
+Recent, benchmark-backed improvements to AI agent harnesses and memory systems.
 
-Created: 2026-09-22. This repository synthesizes published experiments and the accompanying discussion. It is a research notebook, not a benchmark implementation or a claim of independently reproduced results.
+Reviewed: **2026-09-22**. “Recent” means results first published or materially updated in **2026**. This is a research notebook, not a benchmark implementation. Results are author-reported and have not been independently reproduced here.
 
-## Central idea
+## Inclusion rule
 
-A harness determines what a model sees, what it can do, how it receives feedback, and when it continues or stops. Improving those mechanisms can increase the capability of the complete agent without changing model weights.
+An improvement needs a primary source, a named benchmark and metric, a numerical baseline/candidate comparison, and enough model/setup information to interpret it. Claims stay within the measured setting. A bundled system comparison supports the bundle; only a controlled ablation supports attribution to an individual component. Benchmark evidence is not proof of universal capability.
 
-The strongest recurring lesson is to repair a demonstrated bottleneck: missing feedback, unreliable actions, poor access to evidence, repeated failure, or badly allocated time. Adding more prompts, tools, agents, or memory is useful only when it addresses such a bottleneck.
+Exclude unsupported design advice, standalone high scores, cross-vendor rankings with unmatched configurations, and training-set gains presented as generalization. Unknown cost, variance, or evaluation controls must be stated.
 
-## Lessons at a glance
+## Supported comparisons
 
-| Principle | Change to make | Why it can increase capability |
-|---|---|---|
-| Ground reasoning in feedback | Execute tests and inspect results against the original requirements | Supplies new evidence and exposes incorrect beliefs |
-| Make actions reliable | Match tool interfaces to the model; validate and recover from malformed actions | Converts an intended solution into an actual change |
-| Manage access to evidence | Keep concise working context with retrievable full artifacts | Makes important information available without overwhelming attention |
-| Recover from failed strategies | Detect repetition, timeouts, and reasoning without action | Redirects effort toward a different approach |
-| Allocate compute deliberately | Reserve time for implementation and verification; tune reasoning effort | Spends the available budget on productive steps |
-| Preserve progress | Keep edits, decisions, test evidence, and unresolved work across interruptions | Prevents the agent from losing or undoing successful work |
-| Use specialization selectively | Give a reviewer or worker a bounded objective and relevant context | Can expose different errors or divide independent work |
-| Learn from trajectories | Find recurring failures, change one mechanism, measure regressions | Turns harness development into a cumulative empirical process |
+| Improvement | Benchmark | Reported baseline → candidate | Scope |
+|---|---|---|---|
+| Hashline editing interface | 180 React mutation tasks | 6.7% → 68.3% | Grok Code Fast 1; model-dependent, narrower than software engineering |
+| Deep Agents harness changes | Terminal-Bench 2.0 | 52.8% → 66.5% | Fixed GPT-5.2-Codex; bundled changes |
+| Add trajectory notes to retrieval | LongMemEval-V2 Small / Medium | 42.8% → 51.0% / 38.1% → 45.9% | Same reader and retrieval family |
+| Structured AgentRunbook-R retrieval | LongMemEval-V2 Small / Medium | 51.0% → 58.6% / 45.9% → 57.0% | More retrieval computation; not equal-cost evidence |
+| AgentRunbook-C V2 controller bundle | LongMemEval-V2 Small | 69.90% → 75.61% | Same GPT-5.4-mini, xhigh; no isolated online-memory attribution |
 
-These are design hypotheses supported to different degrees. The evidence does not establish one universally optimal harness.
+These rows are separate experiments, not a leaderboard. Memory QA accuracy does not establish improved downstream task completion.
 
 ## Contents
 
-- [Lessons](docs/lessons.md): the mechanisms, practical implications, and failure modes.
-- [Evidence](docs/evidence.md): source-backed results and what they do—and do not—establish.
-- [Experiment framework](docs/experiment-framework.md): how to evaluate a proposed improvement.
+- [Harness evidence](docs/evidence.md): sources, measured comparisons, and excluded claims.
+- [Recent memory improvements](docs/memory-improvements.md): benchmark settings, latency, ablations, and limits.
+- [Supported lessons](docs/lessons.md): narrow implications of these experiments.
+- [Experiment framework](docs/experiment-framework.md): methodology for evaluating future additions; not itself a list of proven interventions.
 
-## Working definition of improvement
+## License
 
-Prefer **more independently verified task success under a stated resource budget**. Also record latency, cost, regressions, and human intervention. More activity, longer reasoning, more tool calls, and larger teams of agents are not success measures by themselves.
-
-Useful distinction:
-
-- **Recovering existing capability:** the model already knows what to do, but the interface or runtime prevents execution.
-- **Enabling additional reasoning:** execution feedback, retrieval, or another perspective supplies information that lets the system solve something it otherwise could not.
-
-Both matter to users. Neither, by itself, demonstrates that the underlying model has become more intelligent.
+[MIT](LICENSE). The license covers this repository's original material. Referenced research, datasets, and third-party code retain their own licenses.
